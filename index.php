@@ -110,7 +110,7 @@ require __DIR__ . '/includes/header.php';
         <div class="mobile-dashboard__topline">
             <a href="index.php" class="mobile-dashboard__brand"><span>K</span> Kasora</a>
             <div class="mobile-dashboard__actions">
-                <a href="export.Php" class="mobile-dashboard__icon-button" aria-label="Ekspor ke Excel" title="Ekspor ke Excel">
+                <a href="export.php" class="mobile-dashboard__icon-button" aria-label="Ekspor ke Excel" title="Ekspor ke Excel">
                     <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v12m0 0 4-4m-4 4-4-4M5 16v3a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-3"/></svg>
                 </a>
                 <a href="profil.php" class="mobile-dashboard__avatar" aria-label="Buka profil"><?= e(strtoupper(substr($_SESSION['pengguna_nama'] ?? 'K', 0, 1))) ?></a>
@@ -232,7 +232,7 @@ require __DIR__ . '/includes/header.php';
         <p class="mt-1 text-sm text-slate-500">Pantau pemasukan dan pengeluaran pribadimu.</p>
     </div>
     <div class="flex flex-wrap gap-2">
-        <a href="export.Php" class="inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm font-bold text-slate-700 shadow-sm transition hover:bg-slate-50">
+        <a href="export.php" class="inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm font-bold text-slate-700 shadow-sm transition hover:bg-slate-50">
             <svg aria-hidden="true" class="h-4 w-4 text-emerald-600" viewBox="0 0 24 24" fill="currentColor"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8zm0 2 4 4h-4zM8 12h2l1 1.7 1-1.7h2l-2 3 2 3h-2l-1-1.8-1 1.8H8l2-3z"/></svg>
             Export Excel
         </a>
