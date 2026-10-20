@@ -15,7 +15,7 @@ $redirectUri = getenv('KASORA_GOOGLE_REDIRECT_URI');
 
 if (!$clientId || !$clientSecret || !$redirectUri) {
     flash_set('error', 'Google Login belum dikonfigurasi. Atur Client ID, Client Secret, dan Redirect URI OAuth.');
-    redirect('login.Php');
+    redirect('login.php');
 }
 
 if (!empty($_GET['code'])) {
@@ -23,13 +23,13 @@ if (!empty($_GET['code'])) {
     if (!is_string($state) || empty($_SESSION['google_oauth_state']) || !hash_equals($_SESSION['google_oauth_state'], $state)) {
         unset($_SESSION['google_oauth_state']);
         flash_set('error', 'Verifikasi Google tidak valid atau sudah kedaluwarsa. Silakan coba lagi.');
-        redirect('login.Php');
+        redirect('login.php');
     }
     unset($_SESSION['google_oauth_state']);
 
     if (isset($_GET['error'])) {
         flash_set('error', 'Login Google dibatalkan atau tidak berhasil.');
-        redirect('login.Php');
+        redirect('login.php');
     }
 
     $curl = curl_init('https://oauth2.googleapis.com/token');
@@ -57,13 +57,13 @@ if (!empty($_GET['code'])) {
     if ($tokenResponse === false || $tokenStatus !== 200) {
         error_log('Google OAuth token request failed (HTTP ' . $tokenStatus . '): ' . $curlError);
         flash_set('error', 'Tidak dapat menyelesaikan login Google. Silakan coba lagi.');
-        redirect('login.Php');
+        redirect('login.php');
     }
     $token = json_decode($tokenResponse, true);
     if (!is_array($token) || empty($token['access_token'])) {
         error_log('Google OAuth token response did not contain an access token.');
         flash_set('error', 'Respons login Google tidak valid. Silakan coba lagi.');
-        redirect('login.Php');
+        redirect('login.php');
     }
 
     $curl = curl_init('https://openidconnect.googleapis.com/v1/userinfo');
@@ -83,7 +83,7 @@ if (!empty($_GET['code'])) {
     if ($profileResponse === false || $profileStatus !== 200) {
         error_log('Google OAuth userinfo request failed (HTTP ' . $profileStatus . '): ' . $curlError);
         flash_set('error', 'Tidak dapat mengambil profil Google. Silakan coba lagi.');
-        redirect('login.Php');
+        redirect('login.php');
     }
     $googleUser = json_decode($profileResponse, true);
     if (!is_array($googleUser)
@@ -93,7 +93,7 @@ if (!empty($_GET['code'])) {
         || ($googleUser['email_verified'] ?? false) !== true
     ) {
         flash_set('error', 'Akun Google tidak memiliki email terverifikasi yang valid.');
-        redirect('login.Php');
+        redirect('login.php');
     }
 
     $email = strtolower($googleUser['email']);
@@ -110,7 +110,7 @@ if (!empty($_GET['code'])) {
             if ($pengguna) {
                 if ($pengguna['google_id'] !== null && $pengguna['google_id'] !== $googleUser['sub']) {
                     flash_set('error', 'Email Google ini sudah terhubung ke akun yang berbeda.');
-                    redirect('login.Php');
+                    redirect('login.php');
                 }
                 $stmt = db()->prepare('UPDATE pengguna SET google_id = ? WHERE id = ?');
                 $stmt->execute([$googleUser['sub'], $pengguna['id']]);
@@ -146,7 +146,7 @@ if (!empty($_GET['code'])) {
         } catch (PDOException $exception) {
             if ($exception->getCode() === '23000') {
                 flash_set('error', 'Akun Google ini sudah terdaftar. Silakan masuk menggunakan metode yang terhubung.');
-                redirect('login.Php');
+                redirect('login.php');
             }
             throw $exception;
         }
@@ -158,7 +158,7 @@ if (!empty($_GET['code'])) {
 
 if (isset($_GET['error'])) {
     flash_set('error', 'Login Google dibatalkan atau tidak berhasil.');
-    redirect('login.Php');
+    redirect('login.php');
 }
 
 $state = bin2hex(random_bytes(32));

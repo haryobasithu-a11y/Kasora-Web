@@ -66,7 +66,7 @@ require __DIR__ . '/includes/header.php';
         <p class="text-sm text-slate-500"><?= count($rows) ?> transaksi<?= $adaFilter ? ' (difilter)' : '' ?></p>
     </div>
     <div class="flex flex-wrap gap-2">
-        <a href="export.Php<?= $exportQuery ? '?' . e(http_build_query($exportQuery)) : '' ?>"
+        <a href="export.php<?= $exportQuery ? '?' . e(http_build_query($exportQuery)) : '' ?>"
            class="inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm font-bold text-slate-700 shadow-sm transition hover:bg-slate-50">
             <span class="font-extrabold text-emerald-600">XLSX</span> Export Excel
         </a>
