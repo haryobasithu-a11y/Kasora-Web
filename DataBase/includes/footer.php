@@ -27,7 +27,7 @@
     </a>
 </nav>
 
-<?php require __DIR__ . '/transition.Php'; ?>
+<?php require __DIR__ . '/transition.php'; ?>
 <script src="assets/app.js" defer></script>
 </body>
 </html>

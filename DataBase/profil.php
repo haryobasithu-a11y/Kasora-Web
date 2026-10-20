@@ -16,13 +16,13 @@ $pengguna = $stmt->fetch();
 if (!$pengguna) {
     $_SESSION = [];
     session_destroy();
-    redirect('login.Php');
+    redirect('login.php');
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!csrf_valid($_POST['csrf'] ?? null)) {
         flash_set('error', 'Sesi tidak valid. Silakan coba lagi.');
-        redirect('profil.Php');
+        redirect('profil.php');
     }
 
     $aksi = $_POST['aksi'] ?? '';
@@ -65,7 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         flash_set('error', 'Permintaan profil tidak valid.');
     }
-    redirect('profil.Php');
+    redirect('profil.php');
 }
 
 require __DIR__ . '/includes/header.php';
